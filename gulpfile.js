@@ -271,7 +271,7 @@ gulp.task("webserver", (cb) => {
 	}
 
     return gulp.src("./dist").pipe(webserver({
-        port: 8888,
+        port: 8080,
 		https: false
     }));
 });

@@ -6,15 +6,16 @@ import {Workbox} from "workbox-window";
 
 (function(){
     let init = () => {
-        setServiceWorker();
+        serviceWorkerHanlder();
+        lazyLoadHanlder();
         pwaHanlder();
+        gtagHanlder();
         setMenuToggle();
         setCloseNavbar();
         setDownArrow();
         setScrollActive();
         setCopyRightYear();
         setGoTop();
-        gtagHanlder();
         // setHeaderFade();
 
         $(window).off("resize");
@@ -23,7 +24,7 @@ import {Workbox} from "workbox-window";
         });
     };
 
-    let setServiceWorker = () => {
+    let serviceWorkerHanlder = () => {
         if("serviceWorker" in navigator){
             let workbx = new Workbox("service-worker.js");
 
@@ -34,6 +35,22 @@ import {Workbox} from "workbox-window";
             });
 
             workbx.register();
+        }
+    };
+
+    let lazyLoadHanlder = () => {
+        if("loading" in HTMLImageElement.prototype){
+            let images = document.querySelectorAll("img[loading='lazy']");
+
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        }
+        else{
+            let script = document.createElement("script");
+
+            script.src = "./js/lib/lazysizes.min.js";
+            document.body.appendChild(script);
         }
     };
 
