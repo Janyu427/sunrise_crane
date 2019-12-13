@@ -111,7 +111,9 @@ import {Workbox} from "workbox-window";
                 installPromptEvent = event;
 
                 if(installPromptEvent.prompt){
-                    addEventListener("click", addToHomeScreen);
+                    setTimeout(() => {
+                        addEventListener("click", addToHomeScreen);
+                    }, 3 * 60 * 1000);
                 }
             };
 
